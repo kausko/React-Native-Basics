@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { AppearanceProvider, useColorScheme} from 'react-native-appearance'
+import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
+import MSNavigator from './Navigators/MSNavigator'
 
-export default function App() {
+export default () => {
+  
+  const dark = useColorScheme() === 'dark' ? true : false
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <AppearanceProvider>
+      <SafeAreaProvider>
+        <NavigationContainer theme={dark ? DarkTheme : DefaultTheme}>
+          <StatusBar style={dark ? 'light' : 'dark'}/>
+          <MSNavigator/>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </AppearanceProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
